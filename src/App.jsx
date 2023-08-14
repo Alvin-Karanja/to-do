@@ -1,5 +1,9 @@
 import "./styles.css"
 
 export default function App() {
-    return "Hi"
+    return <form className="new-item-form">
+        <div className="form-row">
+            <label>New Item</label>
+        </div>
+    </form>
 }

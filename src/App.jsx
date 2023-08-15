@@ -1,11 +1,19 @@
+import { useEffect, useState } from "react"
+import { NewTodoForm } from "./NewTodoForm"
 import "./styles.css"
-import {useState} from "react";
-import {NewTodoForm} from "./NewTodoForm.jsx";
-import {TodoList} from "./TodoList.jsx";
+import { TodoList } from "./TodoList"
 
 export default function App() {
+    const [todos, setTodos] = useState(() => {
+        const localValue = localStorage.getItem("ITEMS")
+        if (localValue == null) return []
 
-    const [todos, setTodos] = useState([])
+        return JSON.parse(localValue)
+    })
+
+    useEffect(() => {
+        localStorage.setItem("ITEMS", JSON.stringify(todos))
+    }, [todos])
 
     function addTodo(title) {
         setTodos(currentTodos => {
@@ -22,6 +30,7 @@ export default function App() {
                 if (todo.id === id) {
                     return { ...todo, completed }
                 }
+
                 return todo
             })
         })
